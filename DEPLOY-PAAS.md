@@ -84,7 +84,9 @@ month of always-on hosting.
 8. Optional demo accounts: add `php artisan db:seed --force` as a **pre-deploy
    command** (Settings → Deploy) or run it from a Railway shell. It is the
    development seeder (password `password`, accounts flagged `is_demo_account`)
-   and is safe to re-run; remove the command before sharing widely.
+   and is safe to re-run; remove the command before sharing widely. On a hosted
+   portfolio demo, set `DEMO_LOGIN_AUTOFILL=true` to show the one-click autofill
+   buttons outside `local` (off by default; it exposes the demo credentials).
 
 Health check path for the platform settings: `/up`.
 

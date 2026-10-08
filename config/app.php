@@ -30,6 +30,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Demo Login Autofill
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the login screen offers one-click autofill buttons for the
+    | seeded demo accounts that still use the dev password. It is always on in
+    | the "local" environment and can be enabled on a hosted portfolio demo by
+    | setting DEMO_LOGIN_AUTOFILL=true. Keep it off for real deployments.
+    |
+    */
+
+    'demo_login_autofill' => env('DEMO_LOGIN_AUTOFILL', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

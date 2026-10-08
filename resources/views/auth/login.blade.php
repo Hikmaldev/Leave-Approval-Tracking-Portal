@@ -65,7 +65,7 @@
                         <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Demo accounts</span>
                         <span class="h-px flex-1 bg-neutral-200"></span>
                     </div>
-                    <p class="mt-2 text-center text-[11px] text-neutral-500">Development only — click an account to autofill, then log in.</p>
+                    <p class="mt-2 text-center text-[11px] text-neutral-500">Demo accounts — click one to autofill, then log in.</p>
                     <div class="mt-3 grid grid-cols-3 gap-2">
                         @foreach ($demoAccounts as $account)
                             <button

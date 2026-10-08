@@ -16,14 +16,16 @@ class AuthController extends Controller
     /**
      * Screen: Login (FR-AUTH-01).
      *
-     * In local environments the seeded demo accounts (DatabaseSeeder) are
-     * offered as one-click autofill buttons. The emails always come from the
-     * database (AGENTS.md rule 1) and only accounts that still use the seeded
-     * dev password are offered, so a changed password is never autofilled.
+     * The seeded demo accounts (DatabaseSeeder) can be offered as one-click
+     * autofill buttons. This is always on in local environments and can be
+     * enabled on a hosted demo with DEMO_LOGIN_AUTOFILL=true. The emails always
+     * come from the database (AGENTS.md rule 1) and only accounts that still
+     * use the seeded dev password are offered, so a changed password is never
+     * autofilled.
      */
     public function create(): View
     {
-        if (! app()->environment('local')) {
+        if (! $this->offersDemoAccounts()) {
             return view('auth.login');
         }
 
@@ -40,6 +42,15 @@ class AuthController extends Controller
             ->values();
 
         return view('auth.login', ['demoAccounts' => $demoAccounts]);
+    }
+
+    /**
+     * Whether the login screen may offer the seeded demo accounts. Local
+     * environments always do; hosted environments opt in explicitly.
+     */
+    private function offersDemoAccounts(): bool
+    {
+        return app()->environment('local') || (bool) config('app.demo_login_autofill');
     }
 
     /**
