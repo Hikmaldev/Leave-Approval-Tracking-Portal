@@ -72,10 +72,19 @@ month of always-on hosting.
    (`RUN_MIGRATIONS=1`).
 6. **Settings → Networking → Generate Domain**, copy the `https://…` URL into
    `APP_URL`, and redeploy.
+
+   > **Port warning.** Nginx listens on `$PORT` (the image default is `8080`),
+   > while php-fpm listens on `9000` inside the same container. A domain or
+   > custom domain must target **8080**; if it targets `9000`, requests hit the
+   > FastCGI socket and the edge answers `502 connection reset by peer`. Fix it
+   > under **Settings → Networking → <domain> → target port** (or
+   > `railway domain`/the API), not by rebuilding.
 7. Optional: **Variables → New Volume** mounted at `/var/www/html/storage` to
    keep attachments between deploys.
-8. Optional demo accounts: Railway shell → `php artisan db:seed --force`
-   (development seeder, password `password`; remove before sharing widely).
+8. Optional demo accounts: add `php artisan db:seed --force` as a **pre-deploy
+   command** (Settings → Deploy) or run it from a Railway shell. It is the
+   development seeder (password `password`, accounts flagged `is_demo_account`)
+   and is safe to re-run; remove the command before sharing widely.
 
 Health check path for the platform settings: `/up`.
 
