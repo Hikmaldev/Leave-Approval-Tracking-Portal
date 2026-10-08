@@ -1,0 +1,40 @@
+# Build context exclusions for the production images.
+
+# Version control and tooling
+.git
+.gitattributes
+.github
+.idea
+.vscode
+.editorconfig
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local dependencies and build output (rebuilt inside the image)
+node_modules
+vendor
+public/build
+public/hot
+public/storage
+
+# Local runtime state
+bootstrap/cache/*.php
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+storage/*.key
+storage/pail
+*.log
+.phpunit.result.cache
+.phpunit.cache
+database/*.sqlite*
+
+# Tests and project documentation (not needed at runtime)
+tests
+testsprite_tests
+.testsprite
+*.md

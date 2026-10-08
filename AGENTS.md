@@ -10,6 +10,7 @@
 - `routes/api.php` (PRD Action Inventory) is registered under `/api` via the `web` middleware group in `bootstrap/app.php` (session auth + CSRF). Sanctum/token auth is a future step; `php artisan install:api` is not required for the current setup.
 - `leave_balance_adjustments` (migration + `LeaveBalanceAdjustment` model) is an addition beyond the Data Spec to persist the mandatory FR-BAL-05 adjustment reason as append-only audit history.
 - TestSprite E2E suite exists under `tests/testsprite/plans/` (project `e48ff857-3eda-4c80-a7b1-bdd3d1146469`, local port 8123) with a dedicated dataset in `database/seeders/TestDatasetSeeder.php` (dev only). Re-run sequence and results are documented in `IMPLEMENTATION-REPORT.md` → "TestSprite E2E verification".
+- Production deployment is containerized: the root `Dockerfile` targets `app` (PHP-FPM + migrations), `web` (Nginx static/pass), and `paas` (single-container Nginx + PHP-FPM listening on `$PORT`, the default final stage for Railway/Koyeb/Render/Northflank); `docker-compose.yml` runs app/web/worker/scheduler/db with `app-storage` + `db-data` volumes and configs live in `docker/`. Guides: `DEPLOY-PAAS.md` and `DEPLOY-DOCKER-ORACLE.md`. Images build for amd64/arm64.
 - The implemented UI is the Blade/Tailwind version only; the static HTML/CSS design mockups have been removed from the repo (`design-system-leave-portal.md` and the PRD remain the design source of truth).
 - Update this file when implementation/configuration establishes executable sources of truth.
 

@@ -116,6 +116,21 @@ To use Vite separately during frontend work:
 npm run dev
 ```
 
+## Docker deployment
+
+The application can be deployed as containers. `docker-compose.yml` runs the
+full stack (PHP-FPM + Nginx + MySQL + queue worker + scheduler) on a VM, and
+the Dockerfile's final `paas` stage runs Nginx + PHP-FPM in a single container
+for PaaS platforms.
+
+- PaaS (Railway, Koyeb, Northflank, Render): [`DEPLOY-PAAS.md`](DEPLOY-PAAS.md)
+- VM / Oracle Cloud Always Free: [`DEPLOY-DOCKER-ORACLE.md`](DEPLOY-DOCKER-ORACLE.md)
+
+```bash
+cp .env.example .env   # then set APP_KEY, DB_*, MYSQL_ROOT_PASSWORD
+docker compose up -d --build
+```
+
 ## Development accounts
 
 These accounts are created by `database/seeders/DatabaseSeeder.php` for local development only. All use the password `password`.
@@ -209,6 +224,8 @@ Authorization must remain enforced on the server. Queries must be scoped to the 
 
 - [Product Requirements Document](PRD-Leave-Approval-Tracking-Portal.md)
 - [Design System](design-system-leave-portal.md)
+- [Docker deployment on Oracle Cloud](DEPLOY-DOCKER-ORACLE.md)
+- [PaaS deployment (Railway, Koyeb, Northflank, Render)](DEPLOY-PAAS.md)
 - [Laravel Documentation](https://laravel.com/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 

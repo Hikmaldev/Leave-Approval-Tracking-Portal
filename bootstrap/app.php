@@ -21,6 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // TLS terminates at the Nginx/Docker/PaaS edge in deployments, so
+        // forwarded headers must be trusted for correct URL and scheme
+        // detection (https redirects, secure cookies).
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'role' => EnsureUserHasRole::class,
         ]);
