@@ -92,7 +92,7 @@
                                     @endif
                                 </td>
                                 <td class="px-3.5 py-3.5 text-right align-middle">
-                                    <a href="{{ route('requests.show', $leaveRequest) }}" class="text-xs font-bold text-brand-700 hover:underline">View</a>
+                                    <a href="{{ route('requests.show', ['leaveRequest' => $leaveRequest, 'from' => 'hr']) }}" class="text-xs font-bold text-brand-700 hover:underline">View</a>
                                 </td>
                             </tr>
                         @endforeach

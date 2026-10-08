@@ -374,6 +374,37 @@ class LeaveWorkflowTest extends TestCase
         $this->assertStringContainsString((string) $request->id, $content);
     }
 
+    public function test_request_detail_back_link_returns_to_the_originating_list(): void
+    {
+        ['employee' => $employee, 'hr' => $hr] = $this->actors();
+        $request = LeaveRequest::factory()->create(['user_id' => $employee->id]);
+
+        // The employee opens the detail from "My Requests": back goes there.
+        $this->actingAs($employee)
+            ->get("/requests/{$request->id}")
+            ->assertOk()
+            ->assertSee('Back to my requests')
+            ->assertDontSee('Back to all requests');
+
+        // HR's "All Requests" list links into the detail with the HR origin.
+        $this->actingAs($hr)
+            ->get('/hr/requests')
+            ->assertOk()
+            ->assertSee(route('requests.show', ['leaveRequest' => $request, 'from' => 'hr']), false);
+
+        // Opened from there, the back link returns to "All Requests".
+        $this->actingAs($hr)
+            ->get("/requests/{$request->id}?from=hr")
+            ->assertOk()
+            ->assertSee('Back to all requests')
+            ->assertDontSee('Back to my requests');
+
+        // Cancelling from that context keeps the "All Requests" origin.
+        $this->actingAs($hr)
+            ->patch("/requests/{$request->id}/cancel", ['from' => 'hr'])
+            ->assertRedirect(route('requests.show', ['leaveRequest' => $request, 'from' => 'hr']));
+    }
+
     public function test_attachment_upload_stores_a_downloadable_file(): void
     {
         ['employee' => $employee, 'supervisor' => $supervisor, 'hr' => $hr] = $this->actors();

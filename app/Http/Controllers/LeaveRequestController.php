@@ -88,9 +88,7 @@ class LeaveRequestController extends Controller
     {
         $this->requests->addAttachment($leaveRequest, $request->file('attachment'));
 
-        return redirect()
-            ->route('requests.show', $leaveRequest)
-            ->with('status', 'Attachment uploaded.');
+        return $this->detailRedirect($request, $leaveRequest, 'Attachment uploaded.');
     }
 
     /**
@@ -101,8 +99,22 @@ class LeaveRequestController extends Controller
     {
         $this->requests->cancel($leaveRequest, $request->user());
 
-        return redirect()
-            ->route('requests.show', $leaveRequest)
-            ->with('status', 'The request was cancelled.');
+        return $this->detailRedirect($request, $leaveRequest, 'The request was cancelled.');
+    }
+
+    /**
+     * Return to the request detail, preserving the HR "All Requests" origin so
+     * the detail page's breadcrumb/back link returns to the list the viewer
+     * navigated from (FR-HIS-03) instead of always resetting to "My Requests".
+     */
+    private function detailRedirect(Request $request, LeaveRequest $leaveRequest, string $status): RedirectResponse
+    {
+        $parameters = ['leaveRequest' => $leaveRequest];
+
+        if ($request->input('from') === 'hr') {
+            $parameters['from'] = 'hr';
+        }
+
+        return redirect()->route('requests.show', $parameters)->with('status', $status);
     }
 }

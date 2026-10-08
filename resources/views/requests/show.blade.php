@@ -1,6 +1,14 @@
-<x-layouts.app title="Request Detail" active="requests.index">
+@php
+    // FR-HIS-01/03: this detail page is reachable from the employee's
+    // "My Requests" list and from HR's company-wide "All Requests" list, so the
+    // breadcrumb and back link must return to whichever list the viewer came from.
+    $fromHr = request('from') === 'hr';
+    $backUrl = $fromHr ? route('hr.requests.index') : route('requests.index');
+@endphp
+
+<x-layouts.app title="Request Detail" :active="$fromHr ? 'hr.requests.index' : 'requests.index'">
     <x-slot:breadcrumbs>
-        <a href="{{ route('requests.index') }}" class="font-semibold text-brand-700 hover:underline">My Requests</a>
+        <a href="{{ $backUrl }}" class="font-semibold text-brand-700 hover:underline">{{ $fromHr ? 'All requests' : 'My Requests' }}</a>
         <span class="text-neutral-300">/</span>
         <strong class="font-semibold text-neutral-900">Request detail</strong>
     </x-slot:breadcrumbs>
@@ -15,6 +23,7 @@
                 <form method="POST" action="{{ route('requests.cancel', $leaveRequest) }}">
                     @csrf
                     @method('PATCH')
+                    <input type="hidden" name="from" value="{{ $fromHr ? 'hr' : '' }}">
                     <x-ui.button type="submit" variant="danger" size="sm">Cancel request</x-ui.button>
                 </form>
             </x-slot:actions>
@@ -126,6 +135,7 @@
                 @can('addAttachment', $leaveRequest)
                     <form method="POST" action="{{ route('requests.attachments.store', $leaveRequest) }}" enctype="multipart/form-data" class="mt-4 border-t border-neutral-200 pt-4">
                         @csrf
+                        <input type="hidden" name="from" value="{{ $fromHr ? 'hr' : '' }}">
                         <label for="attachment" class="block text-[11px] font-bold text-neutral-900">Add attachment</label>
                         <input
                             id="attachment"
@@ -141,9 +151,9 @@
                 @endcan
             </section>
 
-            <a class="inline-flex items-center gap-2 text-xs font-bold text-brand-700 hover:underline" href="{{ route('requests.index') }}">
+            <a class="inline-flex items-center gap-2 text-xs font-bold text-brand-700 hover:underline" href="{{ $backUrl }}">
                 <x-icon name="arrow-left" class="h-4 w-4" />
-                Back to my requests
+                {{ $fromHr ? 'Back to all requests' : 'Back to my requests' }}
             </a>
         </aside>
     </div>
