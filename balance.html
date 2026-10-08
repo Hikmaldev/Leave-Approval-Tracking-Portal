@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Balance | Leave Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand-lockup">
+                <div class="brand-mark" aria-hidden="true">▤</div>
+                <div><p class="brand-name">Leave Portal</p><p class="brand-caption">Approval tracking</p></div>
+            </div>
+            <nav class="main-nav" aria-label="Primary navigation">
+                <p class="nav-label">Workspace</p>
+                <a class="nav-link" href="index.html">Dashboard</a>
+                <a class="nav-link" href="new-request.html">New Request</a>
+                <a class="nav-link" href="my-requests.html">My Requests</a>
+                <a class="nav-link is-active" href="balance.html" aria-current="page">Leave Balance</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="help-card"><p class="help-title">Need help?</p><p class="help-copy">Contact HR if you have questions about your leave balance.</p></div>
+                <p class="sidebar-version">Internal portal · MVP</p>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-separator">/</span><strong>Leave Balance</strong></div>
+                <div class="account-area"><div class="account-copy"><span class="account-name">Current user</span><span class="account-role">Employee</span></div><div class="avatar" aria-hidden="true">U</div></div>
+            </header>
+            <div class="page-wrap">
+                <header class="page-header">
+                    <div class="page-header-copy"><p class="eyebrow">Employee workspace</p><h1>Leave balance</h1><p>See your available balance for each configured leave type before submitting a request.</p></div>
+                </header>
+                <div class="static-notice" role="status">ⓘ <span>Balance data is loaded from your employee account. No demo balances are shown in this static preview.</span></div>
+                <section class="balance-grid" style="margin-top:22px">
+                    <article class="balance-card balance-card-empty"><div class="empty-card-icon" aria-hidden="true">◌</div><p class="empty-card-title">No balance records yet</p><p class="empty-card-copy">Your configured leave balances will appear here once they are provided by HR.</p></article>
+                    <article class="balance-card balance-card-empty"><div class="empty-card-icon" aria-hidden="true">ⓘ</div><p class="empty-card-title">Balance is not available</p><p class="empty-card-copy">Contact HR if you believe your annual quota should already be visible.</p></article>
+                </section>
+                <section class="surface detail-section" style="margin-top:22px"><h2>How balance works</h2><p class="detail-section-intro">The balance is designed to make the impact of a request clear before you submit it.</p><div class="detail-grid"><div><p class="detail-label">Before approval</p><p class="detail-value">Submitting a request does not deduct balance.</p></div><div><p class="detail-label">After final approval</p><p class="detail-value">HR approval deducts the requested days.</p></div><div><p class="detail-label">Rejection</p><p class="detail-value">A rejected request does not change your balance.</p></div><div><p class="detail-label">Cancellation</p><p class="detail-value">A fully approved request restores its deducted days when cancelled.</p></div></div></section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
