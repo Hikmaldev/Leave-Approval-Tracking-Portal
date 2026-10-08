@@ -52,11 +52,12 @@ class ApiActionInventoryTest extends TestCase
     {
         ['employee' => $employee] = $this->actors();
         $type = LeaveType::factory()->create();
+        $monday = Carbon::parse(Carbon::now()->year.'-06-01')->startOfWeek();
 
         $this->actingAs($employee)->postJson('/api/leave-requests', [
             'leave_type_id' => $type->id,
-            'start_date' => Carbon::now()->addDays(2)->toDateString(),
-            'end_date' => Carbon::now()->addDays(2)->toDateString(),
+            'start_date' => $monday->toDateString(),
+            'end_date' => $monday->copy()->addDays(2)->toDateString(),
             'reason' => 'API submission',
         ])
             ->assertCreated()

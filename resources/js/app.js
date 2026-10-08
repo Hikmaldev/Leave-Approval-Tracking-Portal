@@ -62,8 +62,10 @@ document.addEventListener('click', (event) => {
 });
 
 /*
- * New Request form: live inclusive day count + balance preview (FR-REQ-02,
- * design system 5.9). All figures come from the server-rendered balances.
+ * New Request form: live working-day count + balance preview (FR-REQ-02,
+ * design system 5.9). Only Monday–Friday count (weekends excluded), mirroring
+ * App\Support\WorkingDayCalculator. All figures come from the server-rendered
+ * balances.
  */
 const requestForm = document.querySelector('[data-request-form]');
 
@@ -88,7 +90,17 @@ if (requestForm) {
             return null;
         }
 
-        return Math.round((end - start) / 86400000) + 1;
+        let days = 0;
+
+        for (const cursor = new Date(start); cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
+            const day = cursor.getDay();
+
+            if (day !== 0 && day !== 6) {
+                days++;
+            }
+        }
+
+        return days;
     };
 
     const render = () => {
@@ -106,6 +118,12 @@ if (requestForm) {
 
         if (days === null || !balance) {
             preview.innerHTML = '<p class="text-neutral-600">Select a leave type and a valid date range to preview how this request affects your balance.</p>';
+
+            return;
+        }
+
+        if (days < 1) {
+            preview.innerHTML = '<p class="text-amber-800">This range contains no working days (weekends are not counted). Pick at least one weekday.</p>';
 
             return;
         }

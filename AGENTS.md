@@ -18,6 +18,7 @@
 
 - The approval workflow is strictly `pending_supervisor` → `pending_hr` → `approved`; rejection at either step terminates the request, and cancellation is a separate terminal state.
 - Deduct leave balance only on final HR approval, inside the same database transaction as the approval; rejected or cancelled requests must not leave a deduction behind.
+- Requested days count only working days (Monday–Friday); weekends are excluded. A range with no working days is rejected. Keep the shared calculation (`App\Support\WorkingDayCalculator`), the submission validation (`StoreLeaveRequestRequest`), and the request form's live preview (`resources/js/app.js`) in sync.
 - Enforce ownership and role checks server-side: supervisors may only act on requests from their assigned direct reports, while HR performs the final decision.
 - Rejection requires a comment; approval actions must retain the actor, step, decision, comment, and timestamp as audit history.
 - Preserve historical requests and approval actions; deactivate leave types or users rather than deleting records needed by history.

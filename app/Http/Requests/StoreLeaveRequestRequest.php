@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Concerns\ValidatesAttachment;
 use App\Models\LeaveBalance;
 use App\Models\LeaveType;
+use App\Support\WorkingDayCalculator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -47,9 +48,6 @@ class StoreLeaveRequestRequest extends FormRequest
      * days_requested calculation and the actual storage/deduction happen in
      * the service layer; this hook only rejects clearly invalid submissions
      * before they reach it.
-     *
-     * NOTE: the day count below is inclusive calendar days. Confirm whether
-     * weekends/holidays should be excluded before rollout.
      */
     public function after(): array
     {
@@ -72,7 +70,18 @@ class StoreLeaveRequestRequest extends FormRequest
                     );
                 }
 
-                $days = (int) $this->date('start_date')->diffInDays($this->date('end_date')) + 1;
+                // FR-REQ-02: only working days (Monday–Friday) are consumed;
+                // weekends are excluded, so a weekend-only range is invalid.
+                $days = WorkingDayCalculator::count($this->date('start_date'), $this->date('end_date'));
+
+                if ($days < 1) {
+                    $validator->errors()->add(
+                        'end_date',
+                        'The selected range contains no working days. Weekends are not counted, so pick at least one weekday.',
+                    );
+
+                    return;
+                }
 
                 $balance = LeaveBalance::query()
                     ->where('user_id', $this->user()->id)

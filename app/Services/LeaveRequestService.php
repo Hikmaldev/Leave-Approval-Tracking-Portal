@@ -6,6 +6,7 @@ use App\Enums\LeaveRequestStatus;
 use App\Exceptions\WorkflowException;
 use App\Models\LeaveRequest;
 use App\Models\User;
+use App\Support\WorkingDayCalculator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -21,12 +22,13 @@ class LeaveRequestService
     ) {}
 
     /**
-     * FR-REQ-02: inclusive calendar day count. Kept in one place so the
-     * form preview, the stored value, and the balance deduction agree.
+     * FR-REQ-02: number of working days (Monday–Friday) in the inclusive
+     * range; weekends are not consumed. Kept in one place so the form preview,
+     * the stored value, and the balance deduction agree.
      */
     public function calculateDays(Carbon $start, Carbon $end): int
     {
-        return (int) $start->startOfDay()->diffInDays($end->startOfDay()) + 1;
+        return WorkingDayCalculator::count($start, $end);
     }
 
     /**

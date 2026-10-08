@@ -41,15 +41,26 @@ class LeaveWorkflowTest extends TestCase
         return compact('employee', 'supervisor', 'hr');
     }
 
+    /**
+     * A fixed Monday in the current year, so working-day counts are
+     * deterministic no matter which weekday the suite runs on.
+     */
+    private function weekdayStart(): Carbon
+    {
+        return Carbon::parse(Carbon::now()->year.'-06-01')->startOfWeek();
+    }
+
     public function test_employee_can_submit_a_request_and_it_appears_in_history_and_supervisor_queue(): void
     {
         ['employee' => $employee, 'supervisor' => $supervisor] = $this->actors();
         $type = LeaveType::factory()->create(['name' => 'Annual Leave']);
 
+        $monday = $this->weekdayStart();
+
         $response = $this->actingAs($employee)->post('/requests', [
             'leave_type_id' => $type->id,
-            'start_date' => Carbon::now()->addDays(3)->toDateString(),
-            'end_date' => Carbon::now()->addDays(5)->toDateString(),
+            'start_date' => $monday->toDateString(),
+            'end_date' => $monday->copy()->addDays(2)->toDateString(),
             'reason' => 'Family trip',
         ]);
 
@@ -79,11 +90,12 @@ class LeaveWorkflowTest extends TestCase
     {
         ['employee' => $employee] = $this->actors();
         $type = LeaveType::factory()->requiresAttachment()->create();
+        $monday = $this->weekdayStart();
 
         $this->actingAs($employee)->post('/requests', [
             'leave_type_id' => $type->id,
-            'start_date' => Carbon::now()->addDays(1)->toDateString(),
-            'end_date' => Carbon::now()->addDays(1)->toDateString(),
+            'start_date' => $monday->toDateString(),
+            'end_date' => $monday->toDateString(),
             'reason' => 'Sick',
         ])->assertSessionHasErrors('attachment');
 
@@ -94,6 +106,7 @@ class LeaveWorkflowTest extends TestCase
     {
         ['employee' => $employee] = $this->actors();
         $type = LeaveType::factory()->create();
+        $monday = $this->weekdayStart();
 
         LeaveBalance::factory()->create([
             'user_id' => $employee->id,
@@ -104,9 +117,45 @@ class LeaveWorkflowTest extends TestCase
 
         $this->actingAs($employee)->post('/requests', [
             'leave_type_id' => $type->id,
-            'start_date' => Carbon::now()->addDays(1)->toDateString(),
-            'end_date' => Carbon::now()->addDays(3)->toDateString(),
+            'start_date' => $monday->toDateString(),
+            'end_date' => $monday->copy()->addDays(2)->toDateString(),
             'reason' => 'Too long',
+        ])->assertSessionHasErrors('end_date');
+
+        $this->assertDatabaseCount('leave_requests', 0);
+    }
+
+    public function test_weekend_days_are_not_counted(): void
+    {
+        ['employee' => $employee] = $this->actors();
+        $type = LeaveType::factory()->create();
+        $friday = $this->weekdayStart()->addDays(4); // Monday + 4 = Friday
+
+        // Friday → Monday spans a weekend and must count as 2 working days.
+        $this->actingAs($employee)->post('/requests', [
+            'leave_type_id' => $type->id,
+            'start_date' => $friday->toDateString(),
+            'end_date' => $friday->copy()->addDays(3)->toDateString(), // next Monday
+            'reason' => 'Long weekend',
+        ])->assertRedirect();
+
+        $this->assertDatabaseHas('leave_requests', [
+            'user_id' => $employee->id,
+            'days_requested' => 2,
+        ]);
+    }
+
+    public function test_a_range_with_no_working_days_is_rejected(): void
+    {
+        ['employee' => $employee] = $this->actors();
+        $type = LeaveType::factory()->create();
+        $saturday = $this->weekdayStart()->addDays(5); // Monday + 5 = Saturday
+
+        $this->actingAs($employee)->post('/requests', [
+            'leave_type_id' => $type->id,
+            'start_date' => $saturday->toDateString(),
+            'end_date' => $saturday->copy()->addDay()->toDateString(), // Sunday
+            'reason' => 'Weekend only',
         ])->assertSessionHasErrors('end_date');
 
         $this->assertDatabaseCount('leave_requests', 0);
