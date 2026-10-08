@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title desc">
-  <title id="title">Leave Portal mark</title>
-  <desc id="desc">A custom L and A monogram representing a leave request moving through approval.</desc>
-  <rect x="2" y="2" width="44" height="44" rx="13" fill="#fff" stroke="#dcefe6" stroke-width="2"/>
-  <path d="M12.5 10.5v25h21" fill="none" stroke="#0f4c3a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="m20.5 34.5 5.1-18.9 5.9 18.9m-8.6-6.7h5.7" fill="none" stroke="#c6932f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="12.5" cy="10.5" r="2.6" fill="#c6932f"/>
-  <circle cx="33.5" cy="35.5" r="2.6" fill="#0f4c3a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Leave Portal</title>
+  <desc id="desc">A custom leaf-shaped approval path with three decision points.</desc>
+  <rect width="64" height="64" rx="18" fill="#0f4c3a"/>
+  <path d="M31.9 10.5c-10.6 0-19.2 7.2-19.2 18.1 0 10.7 7.7 18.9 19.2 25.1 11.5-6.2 19.2-14.4 19.2-25.1 0-10.9-8.6-18.1-19.2-18.1Z" fill="#f8fbf9"/>
+  <path d="M18.8 42.4c4.7-7.6 9.4-11.7 15.3-14.7 4.3-2.2 7.5-4.7 10.8-8.8" fill="none" stroke="#c6932f" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="18.8" cy="42.4" r="3.1" fill="#c6932f"/>
+  <circle cx="34.1" cy="27.7" r="3.1" fill="#0f4c3a" stroke="#c6932f" stroke-width="2"/>
+  <circle cx="44.9" cy="18.9" r="3.1" fill="#c6932f"/>
+  <path d="M31.9 17.8v7.1" fill="none" stroke="#0f4c3a" stroke-width="2.4" stroke-linecap="round" opacity=".78"/>
 </svg>

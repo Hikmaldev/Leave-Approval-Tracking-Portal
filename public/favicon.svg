@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">Leave Portal</title>
-  <rect width="48" height="48" rx="14" fill="#0f4c3a"/>
-  <path d="M13 10.5v26h21" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="m21 36.5 5-19 6 19m-8.7-6.7H29" fill="none" stroke="#f0c66b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="13" cy="10.5" r="2.6" fill="#f0c66b"/>
+  <rect width="64" height="64" rx="18" fill="#0f4c3a"/>
+  <path d="M31.9 10.5c-10.6 0-19.2 7.2-19.2 18.1 0 10.7 7.7 18.9 19.2 25.1 11.5-6.2 19.2-14.4 19.2-25.1 0-10.9-8.6-18.1-19.2-18.1Z" fill="#f8fbf9"/>
+  <path d="M18.8 42.4c4.7-7.6 9.4-11.7 15.3-14.7 4.3-2.2 7.5-4.7 10.8-8.8" fill="none" stroke="#f0c66b" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="18.8" cy="42.4" r="3.1" fill="#f0c66b"/>
+  <circle cx="34.1" cy="27.7" r="3.1" fill="#0f4c3a" stroke="#f0c66b" stroke-width="2"/>
+  <circle cx="44.9" cy="18.9" r="3.1" fill="#f0c66b"/>
+  <path d="M31.9 17.8v7.1" fill="none" stroke="#0f4c3a" stroke-width="2.4" stroke-linecap="round" opacity=".78"/>
 </svg>
