@@ -376,7 +376,7 @@ class LeaveWorkflowTest extends TestCase
 
     public function test_attachment_upload_stores_a_downloadable_file(): void
     {
-        ['employee' => $employee] = $this->actors();
+        ['employee' => $employee, 'supervisor' => $supervisor, 'hr' => $hr] = $this->actors();
         $type = LeaveType::factory()->requiresAttachment()->create();
         $request = LeaveRequest::factory()->create([
             'user_id' => $employee->id,
@@ -396,8 +396,31 @@ class LeaveWorkflowTest extends TestCase
 
         $attachment = $request->attachments()->first();
 
-        $this->actingAs($employee)
+        // PRD 9.2: the owner, the assigned supervisor, and HR may download.
+        foreach ([$employee, $supervisor, $hr] as $actor) {
+            $this->actingAs($actor)
+                ->get("/attachments/{$attachment->id}")
+                ->assertOk();
+        }
+
+        // Anyone else is refused.
+        $this->actingAs(User::factory()->create(['role' => UserRole::Employee]))
             ->get("/attachments/{$attachment->id}")
-            ->assertOk();
+            ->assertForbidden();
+
+        // The reviewer queues surface the attachment as a working download link.
+        $downloadUrl = route('attachments.download', $attachment);
+
+        $this->actingAs($supervisor)
+            ->get('/approvals/supervisor')
+            ->assertOk()
+            ->assertSee($downloadUrl, false);
+
+        $request->update(['status' => LeaveRequestStatus::PendingHr]);
+
+        $this->actingAs($hr)
+            ->get('/hr/approvals')
+            ->assertOk()
+            ->assertSee($downloadUrl, false);
     }
 }

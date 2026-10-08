@@ -60,10 +60,15 @@
                                 </td>
                                 <td class="px-3.5 py-3.5 align-middle text-xs text-neutral-700">
                                     @if ($leaveRequest->attachments->isNotEmpty())
-                                        <span class="inline-flex items-center gap-1.5 text-[11px] text-neutral-600">
+                                        <a
+                                            href="{{ route('attachments.download', $leaveRequest->attachments->first()) }}"
+                                            target="_blank"
+                                            rel="noopener"
+                                            class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-brand-700 hover:underline"
+                                        >
                                             <x-icon name="paperclip" class="h-3.5 w-3.5 flex-none" />
                                             {{ $leaveRequest->attachments->first()->file_name }}
-                                        </span>
+                                        </a>
                                     @else
                                         <span class="text-[11px] text-neutral-500">—</span>
                                     @endif
