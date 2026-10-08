@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "HR Balance Management shows an empty state before leave types are configured",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'hr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Balance Management' page via the sidebar link (URL /hr/balances)."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the empty state is shown: the page contains the text 'No employee balances to display'."
+    }
+  ]
+}

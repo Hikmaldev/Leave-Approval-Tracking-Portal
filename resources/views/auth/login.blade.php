@@ -57,6 +57,28 @@
             </div>
 
             <x-ui.button type="submit" class="w-full">Log in</x-ui.button>
+
+            @if (! empty($demoAccounts))
+                <div class="pt-1">
+                    <div class="flex items-center gap-3">
+                        <span class="h-px flex-1 bg-neutral-200"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Demo accounts</span>
+                        <span class="h-px flex-1 bg-neutral-200"></span>
+                    </div>
+                    <p class="mt-2 text-center text-[11px] text-neutral-500">Development only — click an account to autofill, then log in.</p>
+                    <div class="mt-3 grid grid-cols-3 gap-2">
+                        @foreach ($demoAccounts as $account)
+                            <button
+                                type="button"
+                                data-fill-account
+                                data-email="{{ $account['email'] }}"
+                                data-password="{{ $account['password'] }}"
+                                class="h-9 rounded-md border border-neutral-300 bg-white px-2 text-[11px] font-bold text-neutral-700 transition hover:border-brand-600 hover:bg-brand-50 hover:text-brand-700"
+                            >{{ $account['label'] }}</button>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </form>
 
         <p class="mt-5 text-center text-[11px] text-neutral-500">Need access help? Contact HR or your portal administrator.</p>

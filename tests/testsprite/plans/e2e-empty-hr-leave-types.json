@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Leave Type Settings shows an empty state with a create prompt",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'hr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Types' page via the sidebar link (URL /hr/leave-types)."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the empty state is shown: the page contains the heading 'No leave types configured' and a prompt about creating the first leave type to make it available in the employee request form."
+    }
+  ]
+}

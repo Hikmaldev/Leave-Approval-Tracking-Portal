@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">Leave Portal</title>
+  <rect width="48" height="48" rx="14" fill="#0f4c3a"/>
+  <path d="M13 10.5v26h21" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m21 36.5 5-19 6 19m-8.7-6.7H29" fill="none" stroke="#f0c66b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="13" cy="10.5" r="2.6" fill="#f0c66b"/>
+</svg>

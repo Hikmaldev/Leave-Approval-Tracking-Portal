@@ -1,6 +1,34 @@
 import './bootstrap';
 
 /*
+ * Login screen: demo-account autofill buttons (dev only). The buttons are
+ * only rendered server-side in local environments (AuthController::create),
+ * and their emails/passwords come from the server-rendered data attributes.
+ */
+document.querySelectorAll('[data-fill-account]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const form = button.closest('form');
+
+        if (!form) {
+            return;
+        }
+
+        const email = form.querySelector('input[name="email"]');
+        const password = form.querySelector('input[name="password"]');
+
+        if (!email || !password) {
+            return;
+        }
+
+        email.value = button.dataset.email ?? '';
+        password.value = button.dataset.password ?? '';
+
+        email.dispatchEvent(new Event('input', { bubbles: true }));
+        password.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+});
+
+/*
  * Decision confirmation dialogs (design system 4): approve/reject open a
  * native <dialog> (elevation-2), never firing instantly on click.
  */

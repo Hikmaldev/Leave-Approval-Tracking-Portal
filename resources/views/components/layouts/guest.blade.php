@@ -10,6 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ? $title.' | ' : '' }}{{ config('app.name', 'Leave Portal') }}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.svg') }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet">
@@ -19,15 +21,13 @@
 <body class="min-h-screen bg-white text-sm text-neutral-900 antialiased">
     <div class="grid min-h-screen lg:grid-cols-[minmax(360px,0.85fr)_minmax(480px,1.15fr)]">
         <aside class="flex flex-col justify-between bg-brand-700 px-6 py-8 text-white sm:px-10 lg:px-16 lg:py-12">
-            <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-white text-brand-700">
-                    <x-icon name="document" class="h-5 w-5" />
-                </span>
+            <a href="{{ route('login') }}" class="flex items-center gap-3" aria-label="Leave Portal login">
+                <img src="{{ asset('leave-portal-mark.svg') }}" alt="" class="h-10 w-10 flex-none" aria-hidden="true">
                 <span>
                     <span class="block text-[15px] font-bold leading-tight tracking-tight">Leave Portal</span>
                     <span class="block text-[11px] text-[#c7ded4]">Approval tracking</span>
                 </span>
-            </div>
+            </a>
 
             <div class="max-w-[390px] py-12 lg:py-14">
                 <p class="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-[#c7ded4]">Employee leave portal</p>

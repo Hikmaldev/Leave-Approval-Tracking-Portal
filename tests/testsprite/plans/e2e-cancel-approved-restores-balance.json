@@ -1,0 +1,92 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Cancelling a fully approved request restores the balance and HR filters work",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.cancelhr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Balance' page (URL /balances) and verify the 'Annual Leave' card shows '12/12'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create), select 'Annual Leave', set Start date to 2026-11-28 and End date to 2026-11-29, enter reason 'E2E cancelhr marker' and click 'Submit request'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'supervisor@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Supervisor Queue' page (URL /approvals/supervisor), find the row for employee 'Flow Cancel Hr' with reason 'E2E cancelhr marker', click 'Approve' and confirm in the dialog."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'hr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'HR Queue' page (URL /hr/approvals), find the row for employee 'Flow Cancel Hr' with reason 'E2E cancelhr marker', click 'Approve' and confirm in the dialog."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'flow.cancelhr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Balance' page (URL /balances)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Annual Leave' card now shows '10/12' and '2 of 12 day(s) used this year'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'hr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'All Requests' page (URL /hr/requests), type 'Flow Cancel Hr' into the 'Employee' search box and click 'Apply filters'."
+    },
+    {
+      "type": "assertion",
+      "description": "Exactly one row is shown for employee 'Flow Cancel Hr' and it displays the status 'Approved'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'View' link for that request to open its detail page."
+    },
+    {
+      "type": "action",
+      "description": "On the detail page click the 'Cancel request' button (top right)."
+    },
+    {
+      "type": "assertion",
+      "description": "The request now shows status 'Cancelled' and a message 'The request was cancelled.' is displayed."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'All Requests' page again (URL /hr/requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Flow Cancel Hr' row now shows the status 'Cancelled'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'flow.cancelhr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Balance' page (URL /balances)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Annual Leave' card shows '12/12' again, confirming the deduction was restored on cancellation."
+    }
+  ]
+}

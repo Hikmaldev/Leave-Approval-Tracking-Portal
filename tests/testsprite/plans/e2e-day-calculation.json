@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "New Request form calculates days and previews the balance automatically",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.daycalc@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page via the sidebar link (URL /requests/create)."
+    },
+    {
+      "type": "action",
+      "description": "In the 'Leave type' dropdown select 'Annual Leave'."
+    },
+    {
+      "type": "action",
+      "description": "Set the 'Start date' field to 2026-11-10 and the 'End date' field to 2026-11-12."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the 'Calculated days' field automatically displays the value '3'."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the balance preview box contains the text 'You have 12 day(s) remaining. This request uses 3 day(s), leaving 9.'"
+    }
+  ]
+}

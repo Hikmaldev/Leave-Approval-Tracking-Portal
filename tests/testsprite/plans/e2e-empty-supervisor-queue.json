@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Supervisor queue shows an empty state when there are no pending requests",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'empty.supervisor@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Supervisor Queue' page via the sidebar link (URL /approvals/supervisor)."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the empty state is shown: the page contains the text 'No requests waiting for your approval' and the explanation 'New requests from your assigned direct reports will appear here'."
+    }
+  ]
+}

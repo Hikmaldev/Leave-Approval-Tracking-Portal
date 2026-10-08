@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -13,10 +15,31 @@ class AuthController extends Controller
 {
     /**
      * Screen: Login (FR-AUTH-01).
+     *
+     * In local environments the seeded demo accounts (DatabaseSeeder) are
+     * offered as one-click autofill buttons. The emails always come from the
+     * database (AGENTS.md rule 1) and only accounts that still use the seeded
+     * dev password are offered, so a changed password is never autofilled.
      */
     public function create(): View
     {
-        return view('auth.login');
+        if (! app()->environment('local')) {
+            return view('auth.login');
+        }
+
+        $demoAccounts = User::query()
+            ->where('is_demo_account', true)
+            ->orderBy('id')
+            ->get()
+            ->filter(fn (User $user) => Hash::check('password', $user->password))
+            ->map(fn (User $user) => [
+                'label' => $user->role->label(),
+                'email' => $user->email,
+                'password' => 'password',
+            ])
+            ->values();
+
+        return view('auth.login', ['demoAccounts' => $demoAccounts]);
     }
 
     /**

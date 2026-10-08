@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
                 'role' => UserRole::HrAdmin,
                 'department' => 'HR',
                 'is_active' => true,
+                'is_demo_account' => true,
             ],
         );
 
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
                 'role' => UserRole::Supervisor,
                 'department' => 'Operations',
                 'is_active' => true,
+                'is_demo_account' => true,
             ],
         );
 
@@ -50,6 +52,7 @@ class DatabaseSeeder extends Seeder
                 'department' => 'Operations',
                 'supervisor_id' => $supervisor->id,
                 'is_active' => true,
+                'is_demo_account' => true,
             ],
         );
     }

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Employee My Requests shows an empty state with a New Request call to action",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'fresh.employee@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'My Requests' page via the sidebar link (URL /requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the empty state is shown: the page contains the text 'You haven't submitted any requests yet' and the description 'Your submitted requests will appear here', and a 'New request' button is visible."
+    }
+  ]
+}

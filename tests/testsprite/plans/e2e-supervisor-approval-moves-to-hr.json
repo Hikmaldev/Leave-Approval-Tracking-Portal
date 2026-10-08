@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Supervisor approval moves the request to the HR queue",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.full@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create), select 'Annual Leave', set Start date to 2026-11-02 and End date to 2026-11-04, enter reason 'E2E supreq marker' and click 'Submit request'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button in the top-right corner of the page."
+    },
+    {
+      "type": "action",
+      "description": "Log in with email 'supervisor@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Supervisor Queue' page via the sidebar link (URL /approvals/supervisor)."
+    },
+    {
+      "type": "action",
+      "description": "In the table, find the row for employee 'Flow Full' whose reason is 'E2E supreq marker' and click its 'Approve' button."
+    },
+    {
+      "type": "action",
+      "description": "In the confirmation dialog that opens, click the 'Approve' submit button (not 'Cancel')."
+    },
+    {
+      "type": "assertion",
+      "description": "The request is no longer shown in the supervisor queue."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'hr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'HR Queue' page via the sidebar link (URL /hr/approvals)."
+    },
+    {
+      "type": "assertion",
+      "description": "The request for employee 'Flow Full' with reason 'E2E supreq marker' is now present in the HR queue."
+    }
+  ]
+}

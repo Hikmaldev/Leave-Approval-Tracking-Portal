@@ -22,3 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# TestSprite runtime artifacts (reusable plans live under tests/testsprite/)
+.testsprite/
+testsprite_tests/

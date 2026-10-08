@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "A request with an end date before the start date is rejected",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.daycalc@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create)."
+    },
+    {
+      "type": "action",
+      "description": "Select 'Annual Leave' as leave type, set Start date to 2026-11-25 and End date to 2026-11-20, and enter reason 'E2E badrange marker'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Submit request' button."
+    },
+    {
+      "type": "assertion",
+      "description": "An inline validation error is shown telling the user the end date must be on or after the start date, and no request is created (the form is still displayed)."
+    }
+  ]
+}

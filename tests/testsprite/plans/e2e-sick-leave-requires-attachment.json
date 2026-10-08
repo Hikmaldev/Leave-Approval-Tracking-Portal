@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Leave type that requires an attachment blocks submission without a file",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.attach@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create)."
+    },
+    {
+      "type": "action",
+      "description": "Select 'Sick Leave' as leave type, set Start date to 2026-11-17 and End date to 2026-11-18, and enter reason 'E2E attach marker'. Leave the attachment file field empty."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Submit request' button."
+    },
+    {
+      "type": "assertion",
+      "description": "The submission is blocked: the form re-renders with an inline error near the attachment field containing the text 'requires an attachment', and the request is not created."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'My Requests' page via the sidebar link (URL /requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "No request with the reason 'E2E attach marker' appears in My Requests."
+    }
+  ]
+}

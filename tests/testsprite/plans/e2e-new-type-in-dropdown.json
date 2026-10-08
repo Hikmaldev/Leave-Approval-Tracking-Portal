@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "A newly created leave type is immediately available in the New Request dropdown",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'hr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Types' page (URL /hr/leave-types), click 'Add leave type', fill Name with 'E2E Quick Type', set Attachment to 'Not required', set Default annual quota to 7, and click 'Save leave type'."
+    },
+    {
+      "type": "assertion",
+      "description": "The leave types table now contains the row 'E2E Quick Type' with status 'Active'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'flow.daycalc@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Leave type' dropdown now contains the option 'E2E Quick Type' (it is immediately available for new requests)."
+    }
+  ]
+}

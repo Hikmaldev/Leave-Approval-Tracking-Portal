@@ -7,15 +7,13 @@
 @endphp
 
 <aside class="z-20 flex w-full flex-col gap-3 border-b border-neutral-300 bg-white px-4 py-3 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[248px] lg:gap-0 lg:border-b-0 lg:border-r lg:px-4 lg:pb-5 lg:pt-7">
-    <div class="flex items-center gap-3 px-1 lg:mb-11 lg:px-3">
-        <span class="flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-brand-700 text-white">
-            <x-icon name="document" class="h-5 w-5" />
-        </span>
+    <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-1 lg:mb-11 lg:px-3" aria-label="Leave Portal dashboard">
+        <img src="{{ asset('leave-portal-mark.svg') }}" alt="" class="h-10 w-10 flex-none" aria-hidden="true">
         <span>
             <span class="block text-[15px] font-bold leading-tight tracking-tight">Leave Portal</span>
             <span class="block text-[11px] text-neutral-600">Approval tracking</span>
         </span>
-    </div>
+    </a>
 
     <nav class="flex gap-1 overflow-x-auto pb-1 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:pb-0" aria-label="Primary navigation">
         <p class="hidden px-3 pb-2 text-[11px] font-bold uppercase tracking-[0.1em] text-neutral-500 lg:block">Workspace</p>

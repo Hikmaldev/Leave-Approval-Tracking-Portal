@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "HR can export the filtered requests as a CSV file",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'hr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'All Requests' page via the sidebar link (URL /hr/requests)."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Export CSV' button."
+    },
+    {
+      "type": "assertion",
+      "description": "A CSV file download is triggered (a downloaded file whose name starts with 'leave-requests-' and ends with '.csv')."
+    }
+  ]
+}

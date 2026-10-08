@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Rejection requires a comment and terminates the request",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.reject@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create), select 'Annual Leave', set Start date to 2026-11-10 and End date to 2026-11-10, enter reason 'E2E reject marker' and click 'Submit request'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button in the top-right corner."
+    },
+    {
+      "type": "action",
+      "description": "Log in with email 'supervisor@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Supervisor Queue' page (URL /approvals/supervisor), find the row for employee 'Flow Reject' with reason 'E2E reject marker' and click its 'Reject' button."
+    },
+    {
+      "type": "action",
+      "description": "In the reject dialog, click the 'Reject' submit button WITHOUT entering any comment text."
+    },
+    {
+      "type": "assertion",
+      "description": "The rejection is blocked by a required-field validation message: the dialog does not close and the request remains pending."
+    },
+    {
+      "type": "action",
+      "description": "Type 'Not approved - coverage conflict' into the rejection reason textarea and click the 'Reject' submit button in the dialog."
+    },
+    {
+      "type": "assertion",
+      "description": "The request is no longer present in the supervisor queue."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'flow.reject@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'My Requests' page (URL /requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'E2E reject marker' request shows the 'Rejected' status with the rejection comment 'Not approved - coverage conflict' visible."
+    }
+  ]
+}

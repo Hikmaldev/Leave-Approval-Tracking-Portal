@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Submitting a valid request adds it to My Requests as Waiting for Supervisor and persists",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.submit@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create)."
+    },
+    {
+      "type": "action",
+      "description": "Select 'Annual Leave' as leave type, set Start date to 2026-11-16 and End date to 2026-11-16, and enter reason 'E2E submit marker'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Submit request' button."
+    },
+    {
+      "type": "assertion",
+      "description": "The page redirects to the request detail page and shows the status badge 'Waiting for Supervisor' plus a success message mentioning the request was submitted."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'My Requests' page via the sidebar link (URL /requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "A request card containing the reason 'E2E submit marker' is visible with the status 'Waiting for Supervisor'."
+    },
+    {
+      "type": "action",
+      "description": "Reload the /requests page."
+    },
+    {
+      "type": "assertion",
+      "description": "After reload, the 'E2E submit marker' request is still visible with the status 'Waiting for Supervisor'."
+    }
+  ]
+}

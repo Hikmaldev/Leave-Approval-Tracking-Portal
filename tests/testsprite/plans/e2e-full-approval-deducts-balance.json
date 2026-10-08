@@ -1,0 +1,60 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Full two-step approval deducts the balance and shows Approved everywhere",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.full@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Balance' page via the sidebar link (URL /balances)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Annual Leave' balance card shows '12/12' and the text '0 of 12 day(s) used this year'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create), select 'Annual Leave', set Start date to 2026-11-03 and End date to 2026-11-05, enter reason 'E2E balance marker' and click 'Submit request'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'supervisor@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Supervisor Queue' page (URL /approvals/supervisor), find the row for employee 'Flow Full' with reason 'E2E balance marker', click 'Approve' and confirm in the dialog."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'hr@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'HR Queue' page (URL /hr/approvals), find the row for employee 'Flow Full' with reason 'E2E balance marker', click 'Approve' and confirm in the dialog."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'flow.full@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'Leave Balance' page (URL /balances)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'Annual Leave' balance card now shows '9/12' and the text '3 of 12 day(s) used this year'."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'My Requests' page (URL /requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "The 'E2E balance marker' request shows the status 'Approved'."
+    }
+  ]
+}

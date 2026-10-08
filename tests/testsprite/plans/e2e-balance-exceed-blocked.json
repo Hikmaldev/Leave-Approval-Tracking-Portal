@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "A request exceeding the remaining balance is blocked with a clear message",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.attach@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'New Request' page (URL /requests/create)."
+    },
+    {
+      "type": "action",
+      "description": "Select 'Annual Leave' as leave type, set Start date to 2026-11-01 and End date to 2026-11-13 (13 days), and enter reason 'E2E overlimit marker'."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Submit request' button."
+    },
+    {
+      "type": "assertion",
+      "description": "The submission is blocked with an inline validation error mentioning only 12 day(s) remain in the Annual Leave balance, and no request is created."
+    }
+  ]
+}

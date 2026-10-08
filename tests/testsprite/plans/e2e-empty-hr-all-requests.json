@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "HR All Requests shows an empty state when no requests exist",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'hr@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Open the 'All Requests' page via the sidebar link (URL /hr/requests)."
+    },
+    {
+      "type": "assertion",
+      "description": "Verify the empty state is shown: the page contains the text 'No requests to display'."
+    }
+  ]
+}

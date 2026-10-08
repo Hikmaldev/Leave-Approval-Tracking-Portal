@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TestSprite/testsprite-cli/v0.14.0/schemas/plan.schema.json",
+  "projectId": "e48ff857-3eda-4c80-a7b1-bdd3d1146469",
+  "type": "frontend",
+  "name": "Employees and supervisors cannot access HR-only screens",
+  "planSteps": [
+    {
+      "type": "action",
+      "description": "Navigate to /login and log in with email 'flow.access@leave-portal.test' and password 'password' using the 'Log in' button."
+    },
+    {
+      "type": "action",
+      "description": "Navigate directly to /hr/approvals."
+    },
+    {
+      "type": "assertion",
+      "description": "Access is denied: the response is a 403 forbidden error page, NOT the HR approval queue."
+    },
+    {
+      "type": "action",
+      "description": "Navigate directly to /hr/requests."
+    },
+    {
+      "type": "assertion",
+      "description": "Access is denied with a 403 forbidden error page, NOT the All Requests screen."
+    },
+    {
+      "type": "action",
+      "description": "Click the 'Log out' icon button, then log in with email 'empty.supervisor@leave-portal.test' and password 'password'."
+    },
+    {
+      "type": "action",
+      "description": "Navigate directly to /hr/approvals."
+    },
+    {
+      "type": "assertion",
+      "description": "Access is denied with a 403 forbidden error page, NOT the HR approval queue."
+    },
+    {
+      "type": "action",
+      "description": "Navigate directly to /api/leave-requests/export."
+    },
+    {
+      "type": "assertion",
+      "description": "The export endpoint responds with a 403 forbidden error (company-wide data must not be downloadable by a supervisor)."
+    }
+  ]
+}

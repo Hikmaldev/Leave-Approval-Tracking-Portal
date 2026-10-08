@@ -26,6 +26,7 @@ class User extends Authenticatable
         'supervisor_id',
         'department',
         'is_active',
+        'is_demo_account',
     ];
 
     /**
@@ -46,6 +47,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => UserRole::class,
             'is_active' => 'boolean',
+            'is_demo_account' => 'boolean',
         ];
     }
 

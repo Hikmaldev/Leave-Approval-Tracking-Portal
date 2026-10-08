@@ -88,6 +88,34 @@ Fixes applied:
 - `LeaveBalancePolicy::manageAny()` and `LeaveTypePolicy::manageAny()` (HR only) now guard the company-wide
   balance screen and leave-type settings, instead of relying on the always-true `viewAny` plus route role.
 
+## TestSprite E2E verification (PRD acceptance criteria, §13)
+
+AI-driven browser suite against the live app (`tests/testsprite/plans/*.json`, project
+`e48ff857-3eda-4c80-a7b1-bdd3d1146469` on TestSprite). **20/20 tests passed, 0 failures** — no fixes
+were required by this round. Runs ran through the TestSprite tunnel against `php artisan serve`
+(port 8123) on the dev MySQL database.
+
+| Acceptance criteria (§13) | TestSprite test(s) | Result |
+|---|---|---|
+| 13.1 General — empty states, visibility, persistence | empty-employee-my-requests, submit-request-and-persist | PASS |
+| 13.2 Submission — empty state, valid submit, attachment-required block, day calc, persistence | empty-employee-my-requests, submit-request-and-persist, sick-leave-requires-attachment, day-calculation | PASS |
+| 13.3 Two-step approval — supervisor/HR queues, reject requires comment, final approval | supervisor-approval-moves-to-hr, rejection-requires-comment, full-approval-deducts-balance, cancel-approved-restores-balance | PASS |
+| 13.4 Leave balance — starting balance shown, no deduction until approval, deduct on approval, restore on cancel | full-approval-deducts-balance, cancel-pending-keeps-balance, cancel-approved-restores-balance, balance-exceed-blocked | PASS |
+| 13.5 Notifications | No UI exists; verified via `notification_logs` rows (17 sent events of types `new_request`, `supervisor_approved`, `pending_hr`, `hr_approved`, `rejected`, `cancelled`) + PHPUnit | PASS (DB/log evidence) |
+| 13.6 Leave types — empty state, create available immediately, deactivate hides it | empty-hr-leave-types, leave-type-create-and-deactivate, new-type-in-dropdown | PASS |
+| Access control / authorization (FR-AUTH-02/03, PRD 9.2, §16) | access-control (403 on HR screens + export for employee/supervisor) | PASS |
+| FR-REQ-05 balance overshoot, FR-REQ-07 end < start | balance-exceed-blocked, end-before-start-blocked | PASS |
+| FR-HIS-03/04 HR filters + CSV export | cancel-approved-restores-balance (filter), hr-export-csv | PASS |
+| FR-BAL-05 adjustment reason + audit | hr-balance-adjustment-reason-required (writes `leave_balance_adjustments` row) | PASS |
+| FR-APR-07 audit trail | Detail/history + 6 `approval_actions` rows (actor, step, decision, comment, timestamp) | PASS |
+
+Runtime artifacts: `.testsprite/runs/runA.txt … runD.txt` (receipts + JSON results), and the dashboard
+is reachable per test result. To re-run, the dataset is reset with `php artisan migrate:fresh --seed`,
+then `php artisan db:seed --class=TestDatasetSeeder`, the empty-state suite runs first, then the leaf
+types `Annual Leave` (quota 12) and `Sick Leave` (attachment-required, quota 30) are created (tinker)
+before the flow suite. The dev database was restored to the base seed (3 accounts, no business data)
+after verification.
+
 ## Not implemented / open decisions
 
 - **Token auth (Sanctum)** is not installed; the API uses session auth under `/api`. `php artisan
