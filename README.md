@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://laravel.com/docs/13.x"><img src="https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 13"></a>
-<a href="https://www.php.net/releases/8.3/en.php"><img src="https://img.shields.io/badge/PHP-8.3-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.3"></a>
+<a href="https://www.php.net/releases/8.4/en.php"><img src="https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.4"></a>
 <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4"></a>
 <a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/MySQL-5.7-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL 5.7"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"></a>
@@ -30,7 +30,7 @@ The portal provides:
 
 ## Technology stack
 
-- **Backend:** Laravel 13, PHP 8.3
+- **Backend:** Laravel 13, PHP 8.4.27
 - **Database:** MySQL 5.7
 - **Frontend:** Blade, Tailwind CSS v4, Vite
 - **Authentication:** Laravel session authentication
@@ -41,7 +41,7 @@ The portal provides:
 
 Before installing, ensure the local environment provides:
 
-- PHP 8.3 or newer supported by the project
+- PHP 8.4 or newer supported by the project
 - Composer
 - Node.js and npm
 - MySQL 5.7 or compatible MySQL server

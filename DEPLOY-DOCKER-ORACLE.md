@@ -4,7 +4,7 @@ This repository ships with a production Docker setup:
 
 | File | Purpose |
 |---|---|
-| `Dockerfile` | Multi-stage build: `assets` builds the Vite bundle, `web` is a self-contained Nginx image serving `public/`, `app` is the PHP 8.3 FPM image running Laravel. |
+| `Dockerfile` | Multi-stage build: `assets` builds the Vite bundle, `web` is a self-contained Nginx image serving `public/`, `app` is the PHP 8.4.27 FPM image running Laravel. |
 | `docker-compose.yml` | Runs `app`, `web`, `worker`, `scheduler`, and `db` (MySQL 8.0) with persistent volumes. |
 | `docker/entrypoint.sh` | Prepares storage permissions, optionally waits for MySQL and runs `php artisan migrate --force` (`RUN_MIGRATIONS=1`). |
 | `docker/nginx/default.conf` | Nginx site: static files plus `fastcgi_pass app:9000`. |

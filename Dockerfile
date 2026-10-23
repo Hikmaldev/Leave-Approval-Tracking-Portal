@@ -4,7 +4,7 @@
 # Leave Approval Tracking Portal - production container images.
 #
 # Targets:
-#   app - PHP 8.3 FPM image running the Laravel application (and artisan).
+#   app - PHP 8.4 FPM image running the Laravel application (and artisan).
 #   web - self-contained Nginx image serving the static front end.
 #
 # Multi-arch: builds on linux/amd64 (local dev) and linux/arm64
@@ -41,7 +41,7 @@ COPY --from=assets /app/public/build /usr/share/nginx/html/build
 # ------------------------------
 # 3. PHP-FPM application
 # ------------------------------
-FROM php:8.3-fpm-bookworm AS app
+FROM php:8.4.27-fpm-bookworm AS app
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
