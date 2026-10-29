@@ -13,6 +13,7 @@ use App\Policies\LeaveRequestPolicy;
 use App\Policies\LeaveTypePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         Gate::policy(LeaveRequest::class, LeaveRequestPolicy::class);
         Gate::policy(LeaveBalance::class, LeaveBalancePolicy::class);
         Gate::policy(LeaveType::class, LeaveTypePolicy::class);
